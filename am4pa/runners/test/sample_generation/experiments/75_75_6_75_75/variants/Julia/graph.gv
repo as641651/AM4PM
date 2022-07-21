@@ -1,0 +1,41 @@
+digraph G {
+ranksep=2.5;
+rankdir=TB;
+node0 [shape=record, label="{ Y = (A B C D) |{ 0 | None | 0 |  |  } }"];
+node0 -> node1 [style=bold, label="tmp1 = (A B) 6.75e+04
+tmp3 = (C D) 6.75e+04
+tmp6 = (tmp1 tmp3) 6.75e+04"];
+node0 -> node2 [style=bold, label="tmp1 = (A B) 6.75e+04"];
+node0 -> node10 [label="tmp2 = (B C) 6.75e+04"];
+node0 -> node16 [style=bold, label="tmp3 = (C D) 6.75e+04"];
+
+node1 [shape=record, label="{ Y = tmp6 |{ 1 | None | 2.02e+05 |  |  } }"];
+
+node2 [shape=record, label="{ Y = (tmp1 C D) |{ 2 | None | 6.75e+04 |  |  } }"];
+node2 -> node1 [style=bold, label="tmp3 = (C D) 6.75e+04
+tmp6 = (tmp1 tmp3) 6.75e+04"];
+node2 -> node4 [label="tmp4 = (tmp1 C) 6.75e+04"];
+node2 -> node7 [style=bold, label="tmp3 = (C D) 6.75e+04"];
+
+node4 [shape=record, label="{ Y = (tmp4 D) |{ 4 | None | 1.35e+05 |  |  } }"];
+node4 -> node1 [label="tmp6 = (tmp4 D) 8.44e+05"];
+
+node7 [shape=record, label="{ Y = (tmp1 tmp3) |{ 7 | None | 1.35e+05 |  |  } }"];
+node7 -> node1 [style=bold, label="tmp6 = (tmp1 tmp3) 6.75e+04"];
+
+node10 [shape=record, label="{ Y = (A tmp2 D) |{ 10 | None | 6.75e+04 |  |  } }"];
+node10 -> node1 [label="tmp5 = (tmp2 D) 8.44e+05
+tmp6 = (A tmp5) 8.44e+05"];
+node10 -> node4 [label="tmp4 = (A tmp2) 8.44e+05"];
+node10 -> node13 [label="tmp5 = (tmp2 D) 8.44e+05"];
+
+node13 [shape=record, label="{ Y = (A tmp5) |{ 13 | None | 1.35e+05 |  |  } }"];
+node13 -> node1 [label="tmp6 = (A tmp5) 8.44e+05"];
+
+node16 [shape=record, label="{ Y = (A B tmp3) |{ 16 | None | 6.75e+04 |  |  } }"];
+node16 -> node1 [style=bold, label="tmp1 = (A B) 6.75e+04
+tmp6 = (tmp1 tmp3) 6.75e+04"];
+node16 -> node7 [style=bold, label="tmp1 = (A B) 6.75e+04"];
+node16 -> node13 [label="tmp5 = (B tmp3) 6.75e+04"];
+
+}

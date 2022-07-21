@@ -1,0 +1,15 @@
+# cost 1.76e+06
+
+Y = (A B C D)
+
+tmp2 = (B C)                  # 6.75e+04
+
+Y = (A tmp2 D)
+
+tmp4 = (A tmp2)               # 8.44e+05
+
+Y = (tmp4 D)
+
+tmp6 = (tmp4 D)               # 8.44e+05
+
+Y = tmp6

@@ -1,0 +1,19 @@
+case:concept:name;concept:name;concept:flops;concept:operation;concept:kernel;timestamp:start;timestamp:end
+algorithm0;gemm_2e+05;2e+05;tmp3 = (C D);gemm!('N', 'N', 1.0, ml2, ml3, 0.0, ml4);1.657009318968947e9;1.657009318969031e9
+algorithm0;gemm_2e+05;2e+05;tmp1 = (A B);gemm!('N', 'N', 1.0, ml0, ml1, 0.0, ml5);1.657009318969031e9;1.657009318969067e9
+algorithm0;gemm_2e+05;2e+05;tmp6 = (tmp1 tmp3);gemm!('N', 'N', 1.0, ml5, ml4, 0.0, ml6);1.657009318969067e9;1.657009318969175e9
+algorithm2;gemm_2e+05;2e+05;tmp1 = (A B);gemm!('N', 'N', 1.0, ml0, ml1, 0.0, ml4);1.657009318969779e9;1.657009318969796e9
+algorithm2;gemm_2e+05;2e+05;tmp4 = (tmp1 C);gemm!('N', 'N', 1.0, ml4, ml2, 0.0, ml5);1.657009318969796e9;1.657009318969892e9
+algorithm2;gemm_2e+06;2e+06;tmp6 = (tmp4 D);gemm!('N', 'N', 1.0, ml5, ml3, 0.0, ml6);1.657009318969892e9;1.657009318969972e9
+algorithm4;gemm_2e+05;2e+05;tmp2 = (B C);gemm!('N', 'N', 1.0, ml1, ml2, 0.0, ml4);1.657009318970304e9;1.657009318970362e9
+algorithm4;gemm_2e+06;2e+06;tmp5 = (tmp2 D);gemm!('N', 'N', 1.0, ml4, ml3, 0.0, ml5);1.657009318970362e9;1.657009318970432e9
+algorithm4;gemm_2e+06;2e+06;tmp6 = (A tmp5);gemm!('N', 'N', 1.0, ml0, ml5, 0.0, ml6);1.657009318970432e9;1.657009318970505e9
+algorithm1;gemm_2e+05;2e+05;tmp1 = (A B);gemm!('N', 'N', 1.0, ml0, ml1, 0.0, ml4);1.657009318970827e9;1.657009318970847e9
+algorithm1;gemm_2e+05;2e+05;tmp3 = (C D);gemm!('N', 'N', 1.0, ml2, ml3, 0.0, ml5);1.657009318970847e9;1.657009318970872e9
+algorithm1;gemm_2e+05;2e+05;tmp6 = (tmp1 tmp3);gemm!('N', 'N', 1.0, ml4, ml5, 0.0, ml6);1.657009318970872e9;1.65700931897092e9
+algorithm5;gemm_2e+05;2e+05;tmp2 = (B C);gemm!('N', 'N', 1.0, ml1, ml2, 0.0, ml4);1.657009318971258e9;1.657009318971327e9
+algorithm5;gemm_2e+06;2e+06;tmp4 = (A tmp2);gemm!('N', 'N', 1.0, ml0, ml4, 0.0, ml5);1.657009318971327e9;1.657009318971407e9
+algorithm5;gemm_2e+06;2e+06;tmp6 = (tmp4 D);gemm!('N', 'N', 1.0, ml5, ml3, 0.0, ml6);1.657009318971407e9;1.657009318971487e9
+algorithm3;gemm_2e+05;2e+05;tmp3 = (C D);gemm!('N', 'N', 1.0, ml2, ml3, 0.0, ml4);1.657009318971838e9;1.657009318971853e9
+algorithm3;gemm_2e+05;2e+05;tmp5 = (B tmp3);gemm!('N', 'N', 1.0, ml1, ml4, 0.0, ml5);1.657009318971853e9;1.657009318971916e9
+algorithm3;gemm_2e+06;2e+06;tmp6 = (A tmp5);gemm!('N', 'N', 1.0, ml0, ml5, 0.0, ml6);1.657009318971916e9;1.657009318971994e9
