@@ -12,7 +12,7 @@ setup(
     url='https://github.com/as641651/am4pa',
     author='Aravind Sankaran',
     author_email='aravindsankaran22@gmail.com',
-    packages= find_packages(), # finds packages inside current directory
+    packages= find_packages(exclude=('test', )), # finds packages inside current directory
     classifiers=[
         "Programming Language :: Python :: 3",
     ],

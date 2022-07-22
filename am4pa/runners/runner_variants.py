@@ -1,115 +1,112 @@
 import os
-import subprocess
-import pandas as pd
 import shutil
+from .execute_sub_process import ExecuteSubProcess, bcolors
 
 
-class RunnerVariants:
+class RunnerVariants(ExecuteSubProcess):
     def __init__(self, operand_sizes,
                  script_dir,
                  threads=4,
                  backend_manager=None,
                  backend_commands=None):
         """
-        This class handles the code generation and execution of the variant codes.
-        The generated event data can be obtained as a pandas dataframe.
+        Runners are objects that executes an external command (such as calling a python or julia or bash script)
 
-        Requirements:
-
-        It is assumed that there exists a script file that generates variant codes
-        for a given oopoerand sizes. The operand sizes are input as command line args
-            e.g. run of script file: python generate.py 10 10 10 10 12
-
-        After running the script file, inside the folder "experiments", which is in
-        the same directory as the script file, an "argument folder" is generated,
-        which contains the case_table, event_meta_table (i.e, the event table without actual run times)
-        ,and a runner script as shown in the expample below:
-            e.g. experiment/10_10_10_10_12/
-                    case_table.csv
-                    event_meta_table.csv
-                    runner.jl
-
-        'runner.jl' is the script that runs the experiments and generates a log file 'run_times.txt' (which is the
-        event table with actual run times) in the "arguments folder"
-
-
-        INPUT:
-
-        name: Experiment name
-        script_path: Path to the script file that generates variants
-        args: operand sizes (or arguments to the script file)
-
-        USECASE:
-        If the behavior of the script is as said in the requirements, this class can
-        call the scipt file and collects the eventlogs as a pandas dataframe, and
-        if needed, can also clean the generated folders.
+        RunnerVariants class calls scripts that does the following:
+            1. Call a script that generates code for variant algorithms.
+            2. Call a script that executes the variant algorithms and outputs a csv file consisting of time measurements
+            3. Call a script that generates another script which defines cretain measurement strategy
+            (such as measuring only a subset of algorithms.)
 
         """
+        super().__init__(backend_manager)
+
         self.script_dir = script_dir
         self.operand_sizes = operand_sizes
+        self.operands_dir_name = "_".join(self.operand_sizes)
         self.operands_dir = os.path.join(self.script_dir,
                                          "experiments",
-                                         "_".join(self.operand_sizes))
+                                         self.operands_dir_name)
 
-        self.backend_manager = backend_manager
         self.backend_commands = backend_commands
         self.threads = threads
+        # In order to check the status of jobs submitted to a bacth system,
+        # job name should match with the job name mentioned in the bacth script
+        self.job_name = "{}_T{}".format(self.operands_dir_name, self.threads)
 
     def generate_variants_for_measurements(self, generation_script):
-        """
-        generates experiments for a given set of valid arguments
-        that can be given as input to the script file.
-            e.g. in,  python generate.py 10 10 10 10 12
-            ['10','10','10','10','12'] would be the argument list.
-
-        Output: Return code == 0 implies successful completion
-        """
+        """calls a script that generates variants"""
         script_path = os.path.join(self.script_dir, generation_script)
         args = self.operand_sizes + ["--threads={}".format(self.threads)]
+        msg = "{} run: Generate variants"
         if not self.backend_manager:
             call = ["python", script_path] + args
-            print(call)
-            completed_proccess = subprocess.run(call)
-            ret = completed_proccess.returncode
+            ret = self.execute_subprocess_local(call, msg.format("Local"))
+            return ret
         else:
             cmd = self.backend_commands.build_cmd("python", script_path, " ".join(args))
-            # print(cmd)
-            stdout, ret = self.backend_manager.run_cmd(cmd)
-            print(stdout.readlines())
+            ret = self.execute_subprocess_backend(cmd, msg.format("Backend interactive"))
+            return ret
 
-        return ret
-
-    def measure_variants(self, app, runner_script):
+    def measure_variants(self, app, runner_script, submit_cmd=None):
         """
-        executes the runner file, which generates run_times.txt
+        executes a script that measures the variants and generates an output file.txt
+        The measurement can be done either locally, in the backend interactively or submnitted
+        to a batch system in the backend.
         """
         runner_path = os.path.join(self.operands_dir, runner_script)
+        msg = "{machine} run: " + "Measurements from {script}".format(script=runner_script)
         if not self.backend_manager:
-            if os.path.exists(self.operands_dir):
-                print("Running Experiments locally")
-                completed_proccess = subprocess.run([app, runner_path])
-                if completed_proccess.returncode == 0:
-                    print("Experiments completed locally")
-                    return 0  # Ran experiment
+            if os.path.exists(runner_path):
+                print("Running Measurements locally")
+                call = [app, runner_path]
+                ret = self.execute_subprocess_local(call, msg.format(machine="Local"))
+                return ret
+            else:
+                print(bcolors.FAIL + "File not found: " + msg.format(machine="Local") + bcolors.ENDC)
+                return -1
         else:
-            cmd = self.backend_commands.build_cmd(app, runner_path)
-            stdout, ret = self.backend_manager.run_cmd(cmd)
-            print(stdout.readlines())
-            if ret == 0:
-                print("Running experiments in the backend.")
-                return 0
+            if not submit_cmd:
+                print("Running Measurements Backend interactive")
+                cmd = self.backend_commands.build_cmd(app, runner_path)
+                ret = self.execute_subprocess_backend(cmd, msg.format(machine="Backend interactive"))
+                return ret
+            else:
+                print("Running Measurements Backend batch")
+                cmd = self.backend_commands.submit_job_cmd(submit_cmd, app, runner_path)
+                ret = self.execute_subprocess_backend(cmd, msg.format(machine="Backend batch"))
+                return ret
 
-        return -1
-
-    def generate_measurements_script(self, measurement_script, competing_variants, run_id, reps):
-        pass
+    def generate_measurements_script(self, generate_measurement_script, variants, run_id, reps):
+        script_path = os.path.join(self.operands_dir, generate_measurement_script)
+        cmd_args = "--algs {algs} --rep {rep} --threads {threads} --id {run_id}".format(algs=" ".join(variants),
+                                                                                        rep=reps,
+                                                                                        threads=self.threads,
+                                                                                        run_id=run_id)
+        msg = "{machine} run: " + "Generate Measurement script {run_id}".format(run_id=run_id)
+        if not self.backend_manager:
+            if os.path.exists(script_path):
+                call = ["python", script_path] + cmd_args.split()
+                ret = self.execute_subprocess_local(call, msg.format(machine="Local"))
+                return ret
+            else:
+                print(bcolors.FAIL + "File not found: " + msg.format(machine="Local") + bcolors.ENDC)
+                return -1
+        else:
+            cmd = self.backend_commands.build_cmd("python", script_path, cmd_args)
+            ret = self.execute_subprocess_backend(cmd, msg.format(machine="Backend interactive"))
+            return ret
 
     def clean(self):
         """remove arguments folder"""
-        if os.path.exists(self.operands_dir):
-            shutil.rmtree(self.operands_dir)
+        if not self.backend_manager:
+            if os.path.exists(self.operands_dir):
+                shutil.rmtree(self.operands_dir)
+            else:
+                print(bcolors.FAIL + "Folder not found: {}".format(self.operands_dir) + bcolors.ENDC)
+                return -1
         else:
-            return -1
-
-
+            cmd = "rm -rf {}".format(self.operands_dir)
+            ret = self.execute_subprocess_backend(cmd, msg="Removing directory {}".format(self.operands_dir))
+            return ret
 
