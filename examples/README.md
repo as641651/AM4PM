@@ -32,6 +32,8 @@ Executing generate-variants-linnea.py creates a subdirectory experiments/75_75_6
 ```python
 !ls sample_generation/experiments/75_75_6_75_75/
 ```
+
+
 output2: an image of the output
 
 runner.jl is a script that executes all the variants once and outputs a file run_times.csv that consists of the run time for each variant.
@@ -113,4 +115,23 @@ The data_proccessing module takes as input the data frames of the case table and
 
 #### FilterOnKPIs
 The FilterOnKPI class filters the variants with the highest FLOP count or execution times within a cretain threshold from the minimum oberved execution time
+```python
+filterAlgs = FilterOnKPIs(case_table, measurements_table)
+```
+```python
+filterAlgs.filter_on_flops_and_rel_duration(1.2)
+```
+output:
 
+```python
+filterAlgs.filter_on_best_flops()
+```
+output:
+
+```python
+filterAlgs.get_alg_seq_sorted_on_duration()
+```
+output:
+
+#### CaseDurationManager
+In practise, measuremnets from multiple tables have to be aggregated. For instance, in order to measure the relative performance of algorithms in PA4Algs (Algorithm Ranking), the variants are measured iteratively, and the execution times from different csv files have to be combined into a single data frame. To this end, CaseDurationManager class is used
