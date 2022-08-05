@@ -189,11 +189,80 @@ runner_local.clean()
 
 # Executing Measurements on the Backend
 ### 1. Instantiate a backend manager
+```python
+from backend_manager import BackendManager,Commands
+import os
+```
+```python
+bm = BackendManager(server="login18-1.hpc.itc.rwth-aachen.de", uname="as641651")
+bm.connect()
+cmds = Commands(source="~/.analyzer")
+```
 ### 2. Generate variants
+```python
+operand_sizes = ["75","75","6","75","75"]
+script_dir = "sample_generation/" # the path to the directory in the backend
+generation_script = "generate-variants-linnea.py"
+runner = RunnerVariants(operand_sizes, script_dir,backend_manager=bm, backend_commands=cmds)
+```
+```python
+ret = runner.generate_variants_for_measurements(generation_script=generation_script)
+```
+
+output
+
 ### 3. Measure variants
+```python
+runner.measure_variants(app="julia", runner_script="runner.jl")
+```
+output:
 ### 4. Read Tables
+To this end, instantiate the DataCollector class by passing the backend manager. The class synchronizes data from the opoerands directory from the runner to a local directory
+```python
+local_dir = "sample_generation/cluster/"
+backend_dir = runner.operands_dir
+```
+```python
+dc_backend = DataCollector(local_dir,backend_dir,bm)
+```
+```python
+ct_backend = dc_backend.get_case_table()
+ct_backend
+```
+output:
+
+```python
+mt_backend = dc_backend.get_runtimes_table()
+mt_backend
+```
+output:
 ### 5. Filter for competing variants
+```python
+filterAlgs_backend = FilterOnKPIs(ct_backend, mt_backend)
+```
+```python
+competing_algs_table = filterAlgs.filter_on_flops_and_rel_duration(1.2)
+competing_algs_table
+```
+output:
+
+```python
+competing_algs = list(competing_algs_table['case:concept:name'])
+competing_algs
+```
+output:
+
 ### 6. Generate measurement scripts for the competing variants in the backend
+```python
+measurements_script = "generate-measurements-script.py"
+variants = competing_algs
+reps = 3
+run_id = 0
+```
+```python
+runner.generate_measurements_script(measurements_script, variants, run_id, reps)
+```
+output:
 ### 7. Run the measurement script in the backend
 ```python
 runner_competing_script = "runner_competing_0.jl"
