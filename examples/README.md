@@ -4,6 +4,10 @@ Runners are objects that executes an external command (such as calling a python 
 
 The execution of the scripts can either be local, in the backend or submitted to a batch system.
 
+### Input:
+
+Implementation that generates and measures variant codes for an input linear algebra expression. The generated code has timestamps inserted before and after the kernel calls.
+
 ```python
 operand_sizes = ["75","75","6","75","75"]
 script_dir = "sample_generation/"
