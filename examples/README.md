@@ -263,14 +263,14 @@ run_id = 0
 runner.generate_measurements_script(measurements_script, variants, run_id, reps)
 ```
 output:
-### 7. Run the measurement script in the backend
+### 7.1. Run the measurement script in the backend
 ```python
 runner_competing_script = "runner_competing_0.jl"
 runner.measure_variants(app="julia", runner_script=runner_competing_script)
 ```
 output:
 
-### Execute the measurement script in a batch system
+### 7.2. Execute the measurement script in a batch system
 Generate measurement script
 
 ```python
