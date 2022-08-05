@@ -203,6 +203,7 @@ output:
 
 ### Execute the measurement script in a batch system
 Generate measurement script
+
 ```python
 run_id = 1
 runner.generate_measurements_script(measurements_script, variants, run_id, reps)
@@ -210,27 +211,27 @@ runner.generate_measurements_script(measurements_script, variants, run_id, reps)
 output:
 
 Submit job
-python```
+```python
 submit_cmd = "sbatch submit.sh"
 runner_competing_script = "runner_competing_1.jl"
 runner.measure_variants(app="julia", runner_script=runner_competing_script, submit_cmd=submit_cmd)
 ```
+
 output:
 
 Check job status
-python```
+```python
 bm.check_slrum_status(runner.job_name)
 ```
 output:
 
 Check if file exists
-python```
+```python
 bm.check_if_file_exists(os.path.join(runner.operands_dir, "run_times_competing_1.csv"))
 ```
 output:
 
-
-### 8. Collect data
+### 8.Collect data
 
 ```python
 mt_competing_0 = dc_backend.get_runtimes_competing_table(0)
