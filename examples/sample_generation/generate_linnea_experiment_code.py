@@ -267,10 +267,7 @@ def generate_runner_competing_code(competing_vars, reps, run_id, threads=4, expr
 
     return 1
 
-if __name__ == '__main__':
 
-    expression_dir = "Matrix-Chain-4/variants-linnea/"
-    generate_experiment_code(expression_dir)
 
 
 
