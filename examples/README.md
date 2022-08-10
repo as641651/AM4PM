@@ -67,7 +67,8 @@ output:
 output:
 
 Executing runner_competing_0.jl measures the variants and outputs a csv file run_times_competing_0.csv consisting of the execution time measurements
-``python
+
+```python
 runner_competing_script = "runner_competing_0.jl"
 runner_local.measure_variants(app="julia", runner_script=runner_competing_script)
 ```
