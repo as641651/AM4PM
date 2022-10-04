@@ -97,8 +97,6 @@ dc_local.get_table("case_table.csv")
 ```
 output:
 
-Here *** we must add an image of the output.
-
 <img src="out1.JPG" style="width:40%;height:40%;">
 
 
@@ -111,11 +109,15 @@ case_table
 
 output:
 
+<img src="out2.JPG" style="width:40%;height:40%;">
+
 ```python
 measurements_table = dc_local.get_runtimes_table()
 measurements_table
 ```
-output11:
+output:
+
+<img src="out3.JPG" style="width:40%;height:40%;">
 
 
 ### Data processing
