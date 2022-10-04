@@ -133,15 +133,21 @@ filterAlgs.filter_on_flops_and_rel_duration(1.2)
 ```
 output:
 
+<img src="out4.JPG" style="width:80%;">
+
 ```python
 filterAlgs.filter_on_best_flops()
 ```
 output:
 
+<img src="out5.JPG" style="width:80%;">
+
 ```python
 filterAlgs.get_alg_seq_sorted_on_duration()
 ```
 output:
+
+<img src="out6.JPG" style="width:10%;">
 
 #### CaseDurationManager
 In practise, measuremnets from multiple tables have to be aggregated. For instance, in order to measure the relative performance of algorithms in PA4Algs (Algorithm Ranking), the variants are measured iteratively, and the execution times from different csv files have to be combined into a single data frame. To this end, CaseDurationManager class is used
@@ -155,6 +161,8 @@ cm.add_case_durations(run_times_table0)
 cm.case_durations
 ```
 output:
+
+<img src="out7.JPG" style="width:50%;">
 
 
 For instances, let us consider combining measurements from run_times_competing_0.csv and run_times_competing_1.csv. run_times_competing_0.csv s already available. Now lets measure again and get run_times_competing_1.csv
