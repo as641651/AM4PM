@@ -97,7 +97,7 @@ dc_local.get_table("case_table.csv")
 ```
 output:
 
-<img src="out1.JPG" style="width:40%;height:40%;">
+<img src="out1.JPG" style="width:35%;height:40%;">
 
 
 DataCollector offers methods to read the files without having to input the file names, provided the file names adhere to the PA4Algs standards.
@@ -109,7 +109,7 @@ case_table
 
 output:
 
-<img src="out2.JPG" style="width:40%;height:40%;">
+<img src="out2.JPG" style="width:35%;">
 
 ```python
 measurements_table = dc_local.get_runtimes_table()
@@ -117,7 +117,7 @@ measurements_table
 ```
 output:
 
-<img src="out3.JPG" style="width:40%;height:40%;">
+<img src="out3.JPG" style="width:100%;">
 
 
 ### Data processing
