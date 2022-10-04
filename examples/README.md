@@ -99,6 +99,8 @@ output:
 
 Here *** we must add an image of the output.
 
+![](out1.JPG)
+
 
 DataCollector offers methods to read the files without having to input the file names, provided the file names adhere to the PA4Algs standards.
 
