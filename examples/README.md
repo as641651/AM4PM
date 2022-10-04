@@ -99,7 +99,7 @@ output:
 
 Here *** we must add an image of the output.
 
-<img src="out1.JPG" style="width:20%;height:20%;">
+<img src="out1.JPG" style="width:40%;height:40%;">
 
 
 DataCollector offers methods to read the files without having to input the file names, provided the file names adhere to the PA4Algs standards.
