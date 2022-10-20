@@ -71,4 +71,12 @@ class DataCollector:
             return ret
         return 0
 
+    def delete_local_data(self):
+        files = glob.glob(os.path.join(self.local_data_dir, "*.csv"))
+        for f in files:
+            if os.path.exists(f):
+                print("removing ", f)
+                os.remove(f)
+        return 0
+
 
