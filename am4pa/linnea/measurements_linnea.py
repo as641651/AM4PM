@@ -15,8 +15,9 @@ class MeasurementsLinnea(MeasurementsManager):
         self.data_collector = None
         self.case_durations_manager = None
         self.h0 = None
-        
-    def generate_variants(self, bGenerate=True):
+        self.init()
+
+    def init(self):
         if self.linnea_config.backend:
             self.runner = RunnerVariants(self.op_sizes,
                                     self.linnea_config.backend_dir,
@@ -36,11 +37,10 @@ class MeasurementsLinnea(MeasurementsManager):
                                     self.linnea_config.local_dir,
                                     threads = self.linnea_config.threads)
             self.data_collector = DataCollector(self.runner.operands_dir)
-
+        
+    def generate_variants(self, bGenerate=True):
         if bGenerate:    
             self.runner.generate_variants_for_measurements(self.linnea_config.generation_script)
-        
-
         
     def gather_competing_variants(self, bmeasure_once=False, rel_duration=1.2):
         case_table = self.data_collector.get_case_table()
