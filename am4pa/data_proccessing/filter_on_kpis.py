@@ -2,15 +2,19 @@ from .get_trace_durations import get_trace_durations
 
 
 class FilterOnKPIs:
-    def __init__(self, case_table, measurements):
-        case_durations = get_trace_durations(measurements)
+    def __init__(self, case_table, measurements=None):
 
-        df = case_durations.merge(case_table, on="case:concept:name")
+        if measurements:
+            case_durations = get_trace_durations(measurements)
+            df = case_durations.merge(case_table, on="case:concept:name")
+            min_duration = df['case:duration'].min()
+            df['case:rel-duration'] = df.apply(lambda row: (row['case:duration'] - min_duration) / min_duration, axis=1)
+        else:
+            df = case_table
+
         min_flop = df['case:flops'].min()
-        min_duration = df['case:duration'].min()
-
         df['case:rel-flops'] = df.apply(lambda row: (row['case:flops'] - min_flop) / min_flop, axis=1)
-        df['case:rel-duration'] = df.apply(lambda row: (row['case:duration'] - min_duration) / min_duration, axis=1)
+        
 
         self.case_table = df
 
@@ -26,6 +30,9 @@ class FilterOnKPIs:
 
     def filter_on_best_flops(self):
         return self.case_table[self.case_table['case:rel-flops'] == 0]
+
+    def filter_on_rel_flops(self, rel_flops=1.2):
+        return self.case_table[self.case_table['case:rel-flops'] <= rel_flops]
 
     def filter_on_rel_duration(self, rel_duration_limit):
         return self.case_table[self.case_table['case:rel-duration'] < rel_duration_limit]
