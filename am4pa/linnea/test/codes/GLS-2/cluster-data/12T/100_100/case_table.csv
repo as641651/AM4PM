@@ -1,0 +1,4 @@
+case:concept:name;case:flops;case:num_kernels
+algorithm0;6.87e+05;3
+algorithm2;2.2e+07;3
+algorithm1;2.7e+06;3

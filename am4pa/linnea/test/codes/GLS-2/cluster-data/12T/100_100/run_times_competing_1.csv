@@ -1,0 +1,91 @@
+case:concept:name;concept:name;concept:flops;concept:operation;concept:kernel;timestamp:start;timestamp:end
+algorithm1_19;ml0 = qr_2.67e+06;2.67e+06;(Q4 R5) = X;ml0 = qr!(ml0);1.688486248891721e9;1.68848624959698e9
+algorithm1_19;gemv_2e+04;2e+04;tmp13 = (Q4^T y);gemv!('T', 1.0, ml3, ml2, 0.0, ml4);1.68848624959698e9;1.688486249597089e9
+algorithm1_19;trsv_1e+04;1e+04;tmp11 = (R5^-1 tmp13);trsv!('U', 'N', 'N', ml5, ml4);1.688486249597089e9;1.688486249597144e9
+algorithm1_14;ml0 = qr_2.67e+06;2.67e+06;(Q4 R5) = X;ml0 = qr!(ml0);1.688486249597462e9;1.688486249599221e9
+algorithm1_14;gemv_2e+04;2e+04;tmp13 = (Q4^T y);gemv!('T', 1.0, ml3, ml2, 0.0, ml4);1.688486249599221e9;1.688486249599308e9
+algorithm1_14;trsv_1e+04;1e+04;tmp11 = (R5^-1 tmp13);trsv!('U', 'N', 'N', ml5, ml4);1.688486249599308e9;1.688486249599313e9
+algorithm0_15;(ml0, ml3, info) = LAPACK.getrf_6.67e+05;6.67e+05;(P3^T L1 U2) = X;(ml0, ml3, info) = LAPACK.getrf!(ml0);1.688486249599673e9;1.688486249797991e9
+algorithm0_15;trsv_100;100;tmp9 = (P3 y);trsv!('L', 'N', 'U', ml0, ml5);1.688486249797991e9;1.688486249798024e9
+algorithm0_15;trsv_1e+04;1e+04;tmp10 = (L1^-1 tmp9);trsv!('U', 'N', 'N', ml0, ml5);1.688486249798024e9;1.688486249798031e9
+algorithm0_18;(ml0, ml3, info) = LAPACK.getrf_6.67e+05;6.67e+05;(P3^T L1 U2) = X;(ml0, ml3, info) = LAPACK.getrf!(ml0);1.688486249798442e9;1.688486249798576e9
+algorithm0_18;trsv_100;100;tmp9 = (P3 y);trsv!('L', 'N', 'U', ml0, ml5);1.688486249798576e9;1.688486249798579e9
+algorithm0_18;trsv_1e+04;1e+04;tmp10 = (L1^-1 tmp9);trsv!('U', 'N', 'N', ml0, ml5);1.688486249798579e9;1.688486249798583e9
+algorithm0_17;(ml0, ml3, info) = LAPACK.getrf_6.67e+05;6.67e+05;(P3^T L1 U2) = X;(ml0, ml3, info) = LAPACK.getrf!(ml0);1.688486249798951e9;1.68848624979905e9
+algorithm0_17;trsv_100;100;tmp9 = (P3 y);trsv!('L', 'N', 'U', ml0, ml5);1.68848624979905e9;1.688486249799053e9
+algorithm0_17;trsv_1e+04;1e+04;tmp10 = (L1^-1 tmp9);trsv!('U', 'N', 'N', ml0, ml5);1.688486249799053e9;1.688486249799057e9
+algorithm2_17;(_, ml3, ml4) = LAPACK.gesvd_2.2e+07;2.2e+07;(U6 S7 V8) = X;(_, ml3, ml4) = LAPACK.gesvd!('O', 'S', ml0);1.688486249799412e9;1.688486250004441e9
+algorithm2_17;gemv_2e+04;2e+04;tmp15 = (U6^T y);gemv!('T', 1.0, ml0, ml2, 0.0, ml5);1.688486250004441e9;1.688486250004453e9
+algorithm2_17;gemv_100;100;tmp16 = (S7^-1 tmp15);gemv!('T', 1.0, ml4, ml5, 0.0, ml6);1.688486250004453e9;1.688486250004456e9
+algorithm0_16;(ml0, ml3, info) = LAPACK.getrf_6.67e+05;6.67e+05;(P3^T L1 U2) = X;(ml0, ml3, info) = LAPACK.getrf!(ml0);1.688486250004845e9;1.68848625000498e9
+algorithm0_16;trsv_100;100;tmp9 = (P3 y);trsv!('L', 'N', 'U', ml0, ml5);1.68848625000498e9;1.688486250004985e9
+algorithm0_16;trsv_1e+04;1e+04;tmp10 = (L1^-1 tmp9);trsv!('U', 'N', 'N', ml0, ml5);1.688486250004985e9;1.688486250004989e9
+algorithm0_12;(ml0, ml3, info) = LAPACK.getrf_6.67e+05;6.67e+05;(P3^T L1 U2) = X;(ml0, ml3, info) = LAPACK.getrf!(ml0);1.688486250005348e9;1.688486250005446e9
+algorithm0_12;trsv_100;100;tmp9 = (P3 y);trsv!('L', 'N', 'U', ml0, ml5);1.688486250005446e9;1.688486250005449e9
+algorithm0_12;trsv_1e+04;1e+04;tmp10 = (L1^-1 tmp9);trsv!('U', 'N', 'N', ml0, ml5);1.688486250005449e9;1.688486250005453e9
+algorithm1_11;ml0 = qr_2.67e+06;2.67e+06;(Q4 R5) = X;ml0 = qr!(ml0);1.688486250005805e9;1.688486250006635e9
+algorithm1_11;gemv_2e+04;2e+04;tmp13 = (Q4^T y);gemv!('T', 1.0, ml3, ml2, 0.0, ml4);1.688486250006635e9;1.688486250006726e9
+algorithm1_11;trsv_1e+04;1e+04;tmp11 = (R5^-1 tmp13);trsv!('U', 'N', 'N', ml5, ml4);1.688486250006726e9;1.688486250006731e9
+algorithm2_10;(_, ml3, ml4) = LAPACK.gesvd_2.2e+07;2.2e+07;(U6 S7 V8) = X;(_, ml3, ml4) = LAPACK.gesvd!('O', 'S', ml0);1.6884862500071e9;1.68848625001374e9
+algorithm2_10;gemv_2e+04;2e+04;tmp15 = (U6^T y);gemv!('T', 1.0, ml0, ml2, 0.0, ml5);1.68848625001374e9;1.688486250013749e9
+algorithm2_10;gemv_100;100;tmp16 = (S7^-1 tmp15);gemv!('T', 1.0, ml4, ml5, 0.0, ml6);1.688486250013749e9;1.688486250013751e9
+algorithm0_19;(ml0, ml3, info) = LAPACK.getrf_6.67e+05;6.67e+05;(P3^T L1 U2) = X;(ml0, ml3, info) = LAPACK.getrf!(ml0);1.68848625001413e9;1.688486250014249e9
+algorithm0_19;trsv_100;100;tmp9 = (P3 y);trsv!('L', 'N', 'U', ml0, ml5);1.688486250014249e9;1.688486250014253e9
+algorithm0_19;trsv_1e+04;1e+04;tmp10 = (L1^-1 tmp9);trsv!('U', 'N', 'N', ml0, ml5);1.688486250014253e9;1.688486250014257e9
+algorithm2_18;(_, ml3, ml4) = LAPACK.gesvd_2.2e+07;2.2e+07;(U6 S7 V8) = X;(_, ml3, ml4) = LAPACK.gesvd!('O', 'S', ml0);1.688486250014615e9;1.688486250020751e9
+algorithm2_18;gemv_2e+04;2e+04;tmp15 = (U6^T y);gemv!('T', 1.0, ml0, ml2, 0.0, ml5);1.688486250020751e9;1.688486250020758e9
+algorithm2_18;gemv_100;100;tmp16 = (S7^-1 tmp15);gemv!('T', 1.0, ml4, ml5, 0.0, ml6);1.688486250020758e9;1.68848625002076e9
+algorithm1_15;ml0 = qr_2.67e+06;2.67e+06;(Q4 R5) = X;ml0 = qr!(ml0);1.688486250021132e9;1.688486250022486e9
+algorithm1_15;gemv_2e+04;2e+04;tmp13 = (Q4^T y);gemv!('T', 1.0, ml3, ml2, 0.0, ml4);1.688486250022486e9;1.68848625002258e9
+algorithm1_15;trsv_1e+04;1e+04;tmp11 = (R5^-1 tmp13);trsv!('U', 'N', 'N', ml5, ml4);1.68848625002258e9;1.688486250022585e9
+algorithm0_11;(ml0, ml3, info) = LAPACK.getrf_6.67e+05;6.67e+05;(P3^T L1 U2) = X;(ml0, ml3, info) = LAPACK.getrf!(ml0);1.68848625002299e9;1.688486250023106e9
+algorithm0_11;trsv_100;100;tmp9 = (P3 y);trsv!('L', 'N', 'U', ml0, ml5);1.688486250023106e9;1.68848625002311e9
+algorithm0_11;trsv_1e+04;1e+04;tmp10 = (L1^-1 tmp9);trsv!('U', 'N', 'N', ml0, ml5);1.68848625002311e9;1.688486250023114e9
+algorithm1_17;ml0 = qr_2.67e+06;2.67e+06;(Q4 R5) = X;ml0 = qr!(ml0);1.68848625002347e9;1.688486250024212e9
+algorithm1_17;gemv_2e+04;2e+04;tmp13 = (Q4^T y);gemv!('T', 1.0, ml3, ml2, 0.0, ml4);1.688486250024212e9;1.688486250024304e9
+algorithm1_17;trsv_1e+04;1e+04;tmp11 = (R5^-1 tmp13);trsv!('U', 'N', 'N', ml5, ml4);1.688486250024304e9;1.688486250024309e9
+algorithm2_16;(_, ml3, ml4) = LAPACK.gesvd_2.2e+07;2.2e+07;(U6 S7 V8) = X;(_, ml3, ml4) = LAPACK.gesvd!('O', 'S', ml0);1.688486250024666e9;1.688486250031459e9
+algorithm2_16;gemv_2e+04;2e+04;tmp15 = (U6^T y);gemv!('T', 1.0, ml0, ml2, 0.0, ml5);1.688486250031459e9;1.688486250031466e9
+algorithm2_16;gemv_100;100;tmp16 = (S7^-1 tmp15);gemv!('T', 1.0, ml4, ml5, 0.0, ml6);1.688486250031466e9;1.688486250031468e9
+algorithm2_14;(_, ml3, ml4) = LAPACK.gesvd_2.2e+07;2.2e+07;(U6 S7 V8) = X;(_, ml3, ml4) = LAPACK.gesvd!('O', 'S', ml0);1.688486250031841e9;1.688486250037633e9
+algorithm2_14;gemv_2e+04;2e+04;tmp15 = (U6^T y);gemv!('T', 1.0, ml0, ml2, 0.0, ml5);1.688486250037633e9;1.68848625003764e9
+algorithm2_14;gemv_100;100;tmp16 = (S7^-1 tmp15);gemv!('T', 1.0, ml4, ml5, 0.0, ml6);1.68848625003764e9;1.688486250037642e9
+algorithm0_14;(ml0, ml3, info) = LAPACK.getrf_6.67e+05;6.67e+05;(P3^T L1 U2) = X;(ml0, ml3, info) = LAPACK.getrf!(ml0);1.688486250038004e9;1.688486250038119e9
+algorithm0_14;trsv_100;100;tmp9 = (P3 y);trsv!('L', 'N', 'U', ml0, ml5);1.688486250038119e9;1.688486250038124e9
+algorithm0_14;trsv_1e+04;1e+04;tmp10 = (L1^-1 tmp9);trsv!('U', 'N', 'N', ml0, ml5);1.688486250038124e9;1.688486250038128e9
+algorithm1_13;ml0 = qr_2.67e+06;2.67e+06;(Q4 R5) = X;ml0 = qr!(ml0);1.688486250038476e9;1.68848625003925e9
+algorithm1_13;gemv_2e+04;2e+04;tmp13 = (Q4^T y);gemv!('T', 1.0, ml3, ml2, 0.0, ml4);1.68848625003925e9;1.688486250039344e9
+algorithm1_13;trsv_1e+04;1e+04;tmp11 = (R5^-1 tmp13);trsv!('U', 'N', 'N', ml5, ml4);1.688486250039344e9;1.688486250039349e9
+algorithm2_11;(_, ml3, ml4) = LAPACK.gesvd_2.2e+07;2.2e+07;(U6 S7 V8) = X;(_, ml3, ml4) = LAPACK.gesvd!('O', 'S', ml0);1.688486250039713e9;1.688486250046198e9
+algorithm2_11;gemv_2e+04;2e+04;tmp15 = (U6^T y);gemv!('T', 1.0, ml0, ml2, 0.0, ml5);1.688486250046198e9;1.688486250046205e9
+algorithm2_11;gemv_100;100;tmp16 = (S7^-1 tmp15);gemv!('T', 1.0, ml4, ml5, 0.0, ml6);1.688486250046205e9;1.688486250046208e9
+algorithm2_12;(_, ml3, ml4) = LAPACK.gesvd_2.2e+07;2.2e+07;(U6 S7 V8) = X;(_, ml3, ml4) = LAPACK.gesvd!('O', 'S', ml0);1.688486250046587e9;1.688486250052805e9
+algorithm2_12;gemv_2e+04;2e+04;tmp15 = (U6^T y);gemv!('T', 1.0, ml0, ml2, 0.0, ml5);1.688486250052805e9;1.688486250052812e9
+algorithm2_12;gemv_100;100;tmp16 = (S7^-1 tmp15);gemv!('T', 1.0, ml4, ml5, 0.0, ml6);1.688486250052812e9;1.688486250052814e9
+algorithm2_19;(_, ml3, ml4) = LAPACK.gesvd_2.2e+07;2.2e+07;(U6 S7 V8) = X;(_, ml3, ml4) = LAPACK.gesvd!('O', 'S', ml0);1.688486250053178e9;1.688486250060828e9
+algorithm2_19;gemv_2e+04;2e+04;tmp15 = (U6^T y);gemv!('T', 1.0, ml0, ml2, 0.0, ml5);1.688486250060828e9;1.688486250060835e9
+algorithm2_19;gemv_100;100;tmp16 = (S7^-1 tmp15);gemv!('T', 1.0, ml4, ml5, 0.0, ml6);1.688486250060835e9;1.688486250060837e9
+algorithm0_10;(ml0, ml3, info) = LAPACK.getrf_6.67e+05;6.67e+05;(P3^T L1 U2) = X;(ml0, ml3, info) = LAPACK.getrf!(ml0);1.688486250061212e9;1.68848625006133e9
+algorithm0_10;trsv_100;100;tmp9 = (P3 y);trsv!('L', 'N', 'U', ml0, ml5);1.68848625006133e9;1.688486250061334e9
+algorithm0_10;trsv_1e+04;1e+04;tmp10 = (L1^-1 tmp9);trsv!('U', 'N', 'N', ml0, ml5);1.688486250061334e9;1.688486250061338e9
+algorithm2_13;(_, ml3, ml4) = LAPACK.gesvd_2.2e+07;2.2e+07;(U6 S7 V8) = X;(_, ml3, ml4) = LAPACK.gesvd!('O', 'S', ml0);1.688486250061695e9;1.68848625006806e9
+algorithm2_13;gemv_2e+04;2e+04;tmp15 = (U6^T y);gemv!('T', 1.0, ml0, ml2, 0.0, ml5);1.68848625006806e9;1.688486250068067e9
+algorithm2_13;gemv_100;100;tmp16 = (S7^-1 tmp15);gemv!('T', 1.0, ml4, ml5, 0.0, ml6);1.688486250068067e9;1.68848625006807e9
+algorithm2_15;(_, ml3, ml4) = LAPACK.gesvd_2.2e+07;2.2e+07;(U6 S7 V8) = X;(_, ml3, ml4) = LAPACK.gesvd!('O', 'S', ml0);1.688486250068445e9;1.688486250074889e9
+algorithm2_15;gemv_2e+04;2e+04;tmp15 = (U6^T y);gemv!('T', 1.0, ml0, ml2, 0.0, ml5);1.688486250074889e9;1.688486250074896e9
+algorithm2_15;gemv_100;100;tmp16 = (S7^-1 tmp15);gemv!('T', 1.0, ml4, ml5, 0.0, ml6);1.688486250074896e9;1.688486250074898e9
+algorithm1_10;ml0 = qr_2.67e+06;2.67e+06;(Q4 R5) = X;ml0 = qr!(ml0);1.68848625007527e9;1.68848625007603e9
+algorithm1_10;gemv_2e+04;2e+04;tmp13 = (Q4^T y);gemv!('T', 1.0, ml3, ml2, 0.0, ml4);1.68848625007603e9;1.688486250076125e9
+algorithm1_10;trsv_1e+04;1e+04;tmp11 = (R5^-1 tmp13);trsv!('U', 'N', 'N', ml5, ml4);1.688486250076125e9;1.688486250076131e9
+algorithm1_12;ml0 = qr_2.67e+06;2.67e+06;(Q4 R5) = X;ml0 = qr!(ml0);1.688486250076487e9;1.688486250077389e9
+algorithm1_12;gemv_2e+04;2e+04;tmp13 = (Q4^T y);gemv!('T', 1.0, ml3, ml2, 0.0, ml4);1.688486250077389e9;1.688486250077482e9
+algorithm1_12;trsv_1e+04;1e+04;tmp11 = (R5^-1 tmp13);trsv!('U', 'N', 'N', ml5, ml4);1.688486250077482e9;1.688486250077487e9
+algorithm1_18;ml0 = qr_2.67e+06;2.67e+06;(Q4 R5) = X;ml0 = qr!(ml0);1.688486250077845e9;1.688486250078594e9
+algorithm1_18;gemv_2e+04;2e+04;tmp13 = (Q4^T y);gemv!('T', 1.0, ml3, ml2, 0.0, ml4);1.688486250078594e9;1.688486250078686e9
+algorithm1_18;trsv_1e+04;1e+04;tmp11 = (R5^-1 tmp13);trsv!('U', 'N', 'N', ml5, ml4);1.688486250078686e9;1.68848625007869e9
+algorithm1_16;ml0 = qr_2.67e+06;2.67e+06;(Q4 R5) = X;ml0 = qr!(ml0);1.688486250079051e9;1.688486250079774e9
+algorithm1_16;gemv_2e+04;2e+04;tmp13 = (Q4^T y);gemv!('T', 1.0, ml3, ml2, 0.0, ml4);1.688486250079774e9;1.688486250079868e9
+algorithm1_16;trsv_1e+04;1e+04;tmp11 = (R5^-1 tmp13);trsv!('U', 'N', 'N', ml5, ml4);1.688486250079868e9;1.688486250079872e9
+algorithm0_13;(ml0, ml3, info) = LAPACK.getrf_6.67e+05;6.67e+05;(P3^T L1 U2) = X;(ml0, ml3, info) = LAPACK.getrf!(ml0);1.688486250080235e9;1.688486250080353e9
+algorithm0_13;trsv_100;100;tmp9 = (P3 y);trsv!('L', 'N', 'U', ml0, ml5);1.688486250080353e9;1.688486250080357e9
+algorithm0_13;trsv_1e+04;1e+04;tmp10 = (L1^-1 tmp9);trsv!('U', 'N', 'N', ml0, ml5);1.688486250080357e9;1.688486250080361e9
