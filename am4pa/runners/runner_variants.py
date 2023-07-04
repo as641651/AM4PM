@@ -26,6 +26,7 @@ class RunnerVariants(ExecuteSubProcess):
         self.operands_dir_name = "_".join(self.operand_sizes)
         self.operands_dir = os.path.join(self.script_dir,
                                          "experiments",
+                                         '{}T/'.format(threads),
                                          self.operands_dir_name)
 
         self.backend_commands = backend_commands

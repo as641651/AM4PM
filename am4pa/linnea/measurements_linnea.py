@@ -27,7 +27,10 @@ class MeasurementsLinnea(MeasurementsManager):
                                     backend_manager = self.linnea_config.bm,
                                     backend_commands= self.linnea_config.bm_cmds)
             
-            local_operands_dir = os.path.join(self.linnea_config.local_dir,self.linnea_config.local_bfolder,self.runner.operands_dir_name)
+            local_operands_dir = os.path.join(self.linnea_config.local_dir,
+                                            self.linnea_config.local_bfolder, 
+                                            '{}T'.format(self.linnea_config.threads),
+                                            self.runner.operands_dir_name)
             if not os.path.exists(local_operands_dir):
                 os.makedirs(local_operands_dir)
             
