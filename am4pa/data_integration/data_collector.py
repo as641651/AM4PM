@@ -59,6 +59,23 @@ class DataCollector:
             return ret
         return 0
 
+    def delete_local_competing_measurements_by_id(self,run_id):
+        file_ = os.path.join(self.local_data_dir,"run_times_competing_{}.csv".format(run_id))
+        if os.path.exists(file_):
+            os.remove(file_)
+
+    def delete_competing_measurements_by_id(self,run_id):
+        file_ = os.path.join(self.local_data_dir,"run_times_competing_{}.csv".format(run_id))
+        if os.path.exists(file_):
+            os.remove(file_)
+
+        if self.backend_manager:
+            cmd = "rm -rf {arg_dir}/run_times_competing_{r_id}.csv".format(arg_dir=self.backend_data_dir,r_id=run_id)
+            ret = self.backend_manager.run_cmd(cmd)
+            return ret
+        return 0
+
+
     def delete_ranks(self):
         files = glob.glob(os.path.join(self.local_data_dir, "*ranks.csv"))
         for f in files:

@@ -7,7 +7,7 @@ from ..data_proccessing import CaseDurationsManager
 from ..data_proccessing import FilterOnKPIs
 
 class MeasurementsLinnea(MeasurementsManager):
-    def __init__(self,linnea_config, op_sizes):
+    def __init__(self,linnea_config, op_sizes,threads=None):
         super().__init__()
         
         self.linnea_config = linnea_config
@@ -16,6 +16,10 @@ class MeasurementsLinnea(MeasurementsManager):
         self.data_collector = None
         self.case_durations_manager = CaseDurationsManager()
         self.h0 = None
+        if not threads:
+            self.threads = int(self.linnea_config.threads)
+        self.threads = int(threads)
+
         self.init()
         self.measured_once = False
 
@@ -23,13 +27,13 @@ class MeasurementsLinnea(MeasurementsManager):
         if self.linnea_config.backend:
             self.runner = RunnerVariants(self.op_sizes,
                                     self.linnea_config.backend_dir,
-                                    threads = self.linnea_config.threads,
+                                    threads = self.threads,
                                     backend_manager = self.linnea_config.bm,
                                     backend_commands= self.linnea_config.bm_cmds)
             
             local_operands_dir = os.path.join(self.linnea_config.local_dir,
                                             self.linnea_config.local_bfolder, 
-                                            '{}T'.format(self.linnea_config.threads),
+                                            '{}T'.format(self.threads),
                                             self.runner.operands_dir_name)
             if not os.path.exists(local_operands_dir):
                 os.makedirs(local_operands_dir)
@@ -40,7 +44,7 @@ class MeasurementsLinnea(MeasurementsManager):
         else:
             self.runner = RunnerVariants(self.op_sizes,
                                     self.linnea_config.local_dir,
-                                    threads = self.linnea_config.threads)
+                                    threads = self.threads)
             self.data_collector = DataCollector(self.runner.operands_dir)
         
     def generate_variants(self, bGenerate=True):
