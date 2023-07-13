@@ -5,7 +5,7 @@ from .expr_init import expr_init
 
 #should go into am4pa
 class LinneaConfig:
-    def __init__(self, problem_file, threads):
+    def __init__(self, problem_file, threads=None):
         
         self.problem_file = problem_file
         self.threads = threads
