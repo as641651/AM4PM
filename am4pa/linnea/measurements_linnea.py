@@ -123,5 +123,7 @@ class MeasurementsLinnea(MeasurementsManager):
         self.case_durations_manager.add_case_durations(df)
         
     def get_alg_measurements(self):
-        return self.case_durations_manager.get_alg_measurements()
+        d_ = self.case_durations_manager.get_alg_measurements()
+        f_ = {alg:d_[alg] for alg in d_.keys() if alg in self.h0 }
+        return f_
         

@@ -44,7 +44,13 @@ class DataManagerLinnea:
             ##TODO
             self.measurements_data = {}
             
-                    
+        self.ranking_data = None
+        self.ranking_data_file = os.path.join(self.lc.local_dir, 'rankings.json')
+        if os.path.exists(self.ranking_data_file):
+            with open(self.ranking_data_file, 'r') as jf:
+                self.ranking_data = json.load(jf)
+        else:
+            self.ranking_data = {}           
              
     def _get_config(self):
    
