@@ -56,7 +56,7 @@ if __name__ == "__main__":
 
     equations = {expression_fn}(*dims)
     graph = SearchGraph(equations)
-    graph.generate(time_limit=60,
+    graph.generate(time_limit=10,
                    merging=True,
                    dead_ends=True,
                    pruning_factor=100.0)

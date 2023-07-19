@@ -23,6 +23,9 @@ class CaseDurationsManager:
         print("Collected data from {} runs".format(num_runs))
 
     def get_alg_measurements(self):
+        if not isinstance(self.case_durations,pd.DataFrame):
+            return {}
+
         alg_list = [alg.split('_')[0] for alg in list(self.case_durations['case:concept:name'])]
         alg_list = list(set(alg_list))
 

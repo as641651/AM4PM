@@ -50,7 +50,13 @@ class DataManagerLinnea:
             with open(self.ranking_data_file, 'r') as jf:
                 self.ranking_data = json.load(jf)
         else:
-            self.ranking_data = {}           
+            self.ranking_data = {}   
+
+        self.slrum_running_jobs = {'r':[]}
+        self.running_jobs_file = os.path.join(self.lc.local_dir, 'running_jobs.json')
+        if os.path.exists(self.running_jobs_file):
+            with open(self.running_jobs_file, 'r') as jf:
+                self.slrum_running_jobs = json.load(jf)        
              
     def _get_config(self):
    
@@ -179,21 +185,65 @@ class DataManagerLinnea:
                 self._update_json(self.measurements_data,self.measurements_file)
             
             self.mls[thread_str][op_size] = ml
+
+    def _add_measurement_data(self,thread_str,op_size,run_id):
+        if not op_size in self.measurements_data[thread_str]:
+            self.measurements_data[thread_str][op_size] = []
+        if not str(run_id) in self.measurements_data[thread_str][op_size]:
+            self.measurements_data[thread_str][op_size].append(str(run_id))
+            self._update_json(self.measurements_data, self.measurements_file)
+
         
-    def measure_variants(self, thread,op_size,reps,run_id):
+    def get_slrum_job_name(self,thread_str,op_size,run_id):
+        return '{}/{}/R{}'.format(thread_str,op_size,run_id)
+
+    def _add_running_job(self,jobname):
+        rj = self.slrum_running_jobs['r']
+        if not jobname in rj:
+            rj.append(jobname)
+            self._update_json(self.slrum_running_jobs,self.running_jobs_file)
+
+    def _remove_running_job(self,jobname):
+        rj = self.slrum_running_jobs['r']
+        if jobname in rj:
+            rj.remove(jobname)
+            self._update_json(self.slrum_running_jobs,self.running_jobs_file)
+    
+    def measure_variants(self, thread,op_size,reps,run_id,bSlrum=False):
         thread_str = '{}T'.format(thread)
         try:
             ml = self.mls[thread_str][op_size]
-            ml.measure(reps,run_id)
-            if not op_size in self.measurements_data[thread_str]:
-                self.measurements_data[thread_str][op_size] = []
-            if not run_id in self.measurements_data[thread_str][op_size]:
-                self.measurements_data[thread_str][op_size].append(str(run_id))
-                self._update_json(self.measurements_data, self.measurements_file)
+            if not bSlrum:
+                ml.measure(reps,run_id)
+                self._add_measurement_data(thread_str,op_size,run_id)
+            else:
+                ml.measure(reps,run_id,True)
+                self._add_running_job(self.get_slrum_job_name(thread_str,op_size,run_id))
+
             ml.data_collector.delete_local_competing_measurements_by_id(run_id)
         except KeyError:
             print("First Generate variants for the said thread and op_Size")
-            
+              
+    def _check_if_measurement_exists(self,jobname):
+
+        x = jobname.split('/')
+        thread_str = x[0]
+        op_size = x[1]
+        run_id = int(x[2].split('R')[-1])
+
+        cmd = 'ls {}/run_times_competing_{}*'.format(self.mls[thread_str][op_size].runner.operands_dir,run_id)
+        ret, _ = self.lc.bm.run_cmd(cmd)
+        runs = ret.readlines()
+        if runs:
+            self._add_measurement_data(thread_str,op_size,run_id)
+            self._remove_running_job(jobname)
+
+    def check_completed_slrum_jobs(self):
+        rj = self.slrum_running_jobs['r'].copy()
+        for jobname in rj:
+            self._check_if_measurement_exists(jobname)
+
+    
     def delete_measurements(self,thread,op_size,run_id):
         thread_str = '{}T'.format(thread)
         try:

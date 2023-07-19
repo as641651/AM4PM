@@ -120,7 +120,8 @@ class MeasurementsLinnea(MeasurementsManager):
     def collect_measurements(self, run_id):
         df = self.data_collector.get_runtimes_competing_table(run_id)
         df = self.filter_table(df)
-        self.case_durations_manager.add_case_durations(df)
+        if len(df)>0:
+            self.case_durations_manager.add_case_durations(df)
         
     def get_alg_measurements(self):
         d_ = self.case_durations_manager.get_alg_measurements()

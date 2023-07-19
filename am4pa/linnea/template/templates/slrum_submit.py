@@ -9,8 +9,8 @@
 # declare the merged STDOUT/STDERR file
 #SBATCH --output=logs/{job_name}_output.%J.txt
 
-#SBATCH -A aices
-#SBATCH --time 03:00:00
+#SBATCH -p c18m
+#SBATCH --time 01:00:00
 #SBATCH --cpus-per-task={threads}
 #SBATCH --threads-per-core=1
 ##SBATCH --exclusive
