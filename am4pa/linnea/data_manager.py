@@ -1,17 +1,20 @@
 import os
+import re
 import pandas as pd
 from .linnea_config import LinneaConfig
 from .measurements_linnea import MeasurementsLinnea
 import json
 
 class DataManagerLinnea:
-    def __init__(self,linnea_config:LinneaConfig):
+    def __init__(self,linnea_config:LinneaConfig,read_only=False):
         self.lc = linnea_config
         
         self.config = None
         self.config_file = os.path.join(self.lc.local_dir, 'config.json')
         self.bNew_config = True
-        self._get_config()
+        self.read_only = read_only
+        if not read_only:
+            self._get_config()
             
         self.operands_data = None    
         self.operands_file = os.path.join(self.lc.local_dir, 'operands.json')

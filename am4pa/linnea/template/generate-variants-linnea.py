@@ -3,6 +3,8 @@ import os
 import shutil
 
 from linnea.algebra.expression import Matrix, Vector, Equal, Times, Inverse, Transpose
+from linnea.algebra.expression import ConstantScalar, Symbol, Plus, Scalar, InverseTranspose, InverseConjugate
+from linnea.algebra.expression import InverseConjugateTranspose, ConjugateTranspose, Index, IdentityMatrix
 from linnea.algebra.equations import Equations
 from linnea.algebra.properties import Property
 

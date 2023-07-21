@@ -76,7 +76,7 @@ class OperandsSamplerCorner(OperandsSamplerBase):
     def sample_normal_2(self):
         ops = []
         for i in range(self.n):
-            ops.append(random.randint(1,self.max_op))
+            ops.append(random.randint(5,self.max_op))
         return ops
 
 
